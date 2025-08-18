@@ -1,0 +1,135 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Class Performance</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+</head>
+
+<body>
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="index.html">Class Analysis</a></li>
+                <li><a href="">All Students Data</a></li>
+            </ul>
+        </nav>
+        <hgroup>
+            <h1>Class Performance Analysis</h1>
+            <p>Statistical analysis for student</p>
+        </hgroup>
+    </header>
+
+    <main class="container">
+        <section>
+            <h1>Class Topper</h1>
+            <div id="topperDetails"></div>
+        </section>
+        <section>
+            <h1>A Grade Count</h1>
+            <div id="aGradeCount"></div>
+        </section>
+    </main>
+    <script>
+        const studentsData = [
+            {
+                name: "Rahul",
+                rollNo: 101,
+                hindi: 80,
+                english: 75,
+                maths: 90,
+                computers: 88,
+                science: 82,
+                totalMarks: 415,
+                avgMarks: 83,
+            },
+            {
+                name: "Amit",
+                rollNo: 102,
+                hindi: 85,
+                english: 70,
+                maths: 95,
+                computers: 92,
+                science: 78,
+                totalMarks: 420,
+                avgMarks: 84,
+            },
+            {
+                name: "Priya",
+                rollNo: 103,
+                hindi: 78,
+                english: 92,
+                maths: 87,
+                computers: 95,
+                science: 90,
+                totalMarks: 442,
+                avgMarks: 88.4,
+            },
+            {
+                name: "Kaveri",
+                rollNo: 104,
+                hindi: 89,
+                english: 95,
+                maths: 96,
+                computers: 98,
+                science: 91,
+                totalMarks: 469,
+                avgMarks: 93.8,
+            },
+        ];
+        const { name, rollNo, totalMarks, avgMarks } = studentsData.reduce(
+            ( acc, curr ) => ( curr.totalMarks > acc.totalMarks ? curr : acc )
+        );
+        const getGrades = ( average ) => {
+            if ( average >= 90 ) return "A";
+            if ( average >= 80 ) return "B";
+            if ( average >= 70 ) return "C";
+            if ( average >= 60 ) return "D";
+            if ( average >= 50 ) return "E";
+            return "F";
+        };
+
+        const appendData = document.getElementById( "topperDetails" );
+        appendData.innerHTML = `<div>
+            <p><strong>Name: </strong>${ name }</p>
+            <p><strong>Roll No: </strong>${ rollNo }</p>
+            <p><strong>Total Marks: </strong>${ totalMarks }</p>
+            <p><strong>Grade: </strong>${ getGrades( avgMarks ) }</p>
+            </div>`;
+        const findAGraders = studentsData.reduce( ( acc, curr ) => {
+            if ( curr.avgMarks > 90 ) {
+                acc.push( curr );
+            }
+            return acc;
+        }, [] );
+        const appendAGraders = document.querySelector( "#aGradeCount" );
+        let html = `<p><strong>
+            A Graders: ${ findAGraders.length }</strong></p>`;
+        appendAGraders.innerHTML = html;
+        html += (
+            `<table>
+                <thead>
+                    <tr>
+                        <td>
+                            <strong>Name</strong>
+                        </td>
+                        <td>
+                            <strong>Roll No</strong>
+                        </td>
+                        <td>
+                            <strong>Total Marks</strong>
+                        </td>
+                        <td>
+                            <strong>Average</strong>
+                        </td>
+                    </tr>
+                </thead>
+            </table>`
+        );
+        
+        appendAGraders.innerHTML = html;
+    </script>
+</body>
+
+</html>
