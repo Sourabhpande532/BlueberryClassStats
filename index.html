@@ -30,6 +30,14 @@
             <h1>A Grade Count</h1>
             <div id="aGradeCount"></div>
         </section>
+        <section>
+            <h1>Class Statistics</h1>
+            <div id="classStatistics"></div>
+        </section>
+        <section>
+            <h1>Subject Averages</h1>
+            <div id="subjectAverage"></div>
+        </section>
     </main>
     <script>
         const studentsData = [
@@ -107,8 +115,10 @@
         let html = `<p><strong>
             A Graders: ${ findAGraders.length }</strong></p>`;
         appendAGraders.innerHTML = html;
-        html += (
-            `<table>
+
+        if ( findAGraders.length > 0 ) {
+            html += (
+                `<table>
                 <thead>
                     <tr>
                         <td>
@@ -125,10 +135,40 @@
                         </td>
                     </tr>
                 </thead>
-            </table>`
-        );
-        
+            <tbody>`);
+
+            findAGraders.map( ( { name, rollNo, totalMarks, avgMarks } ) => {
+                html += `<tr> 
+                <td>${ name }</td>
+                <td>${ rollNo }</td>
+                <td>${ totalMarks }</td>
+                <td>${ avgMarks }</td>
+                </tr>    `
+            } )
+            html += `</tbody></table>`
+        } else {
+            html += `<p>No student achived, A grade in class! Error, No data found!</p>`
+        }
         appendAGraders.innerHTML = html;
+        const classStatisticsReport = document.getElementById( "classStatistics" );
+        const totalMark = studentsData.reduce( ( acc, curr ) => {
+            acc += curr.totalMarks
+            return acc;
+        }, 0 )
+        const classAverage = totalMark / studentsData.length;
+        classStatisticsReport.innerHTML = `<p><strong>Total Class Marks:</strong> ${ totalMark }</p>
+        <p><strong>Class Average: </strong> ${ classAverage }</p>`
+        const subjectAverage = document.getElementById( "subjectAverage" );
+        const subjectAverages = studentsData.reduce( ( acc, curr ) => {
+            acc.hindiTotal += curr.hindi;
+            acc.englishTotal += curr.english;
+            acc.mathsTotal += curr.maths;
+            acc.computersTotal += curr.computers;
+            acc.scienceTotal += curr.science;
+            return acc;
+        }, { hindiTotal: 0, englishTotal: 0, mathsTotal: 0, computersTotal: 0, scienceTotal: 0 } )
+        console.log(subjectAverages);
+        
     </script>
 </body>
 
