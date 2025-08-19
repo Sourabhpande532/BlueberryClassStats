@@ -36,7 +36,7 @@
         </section>
         <section>
             <h1>Subject Averages</h1>
-            <div id="subjectAverage"></div>
+            <div class="grid" id="subjectAverage"></div>
         </section>
     </main>
     <script>
@@ -158,8 +158,8 @@
         const classAverage = totalMark / studentsData.length;
         classStatisticsReport.innerHTML = `<p><strong>Total Class Marks:</strong> ${ totalMark }</p>
         <p><strong>Class Average: </strong> ${ classAverage }</p>`
-        const subjectAverage = document.getElementById( "subjectAverage" );
-        const subjectAverages = studentsData.reduce( ( acc, curr ) => {
+
+        const { hindiTotal, englishTotal, mathsTotal, computersTotal, scienceTotal } = studentsData.reduce( ( acc, curr ) => {
             acc.hindiTotal += curr.hindi;
             acc.englishTotal += curr.english;
             acc.mathsTotal += curr.maths;
@@ -167,9 +167,36 @@
             acc.scienceTotal += curr.science;
             return acc;
         }, { hindiTotal: 0, englishTotal: 0, mathsTotal: 0, computersTotal: 0, scienceTotal: 0 } )
-        console.log(subjectAverages);
-        
+
+        const subjectAvg = {
+            hindi: hindiTotal / studentsData.length,
+            english: englishTotal / studentsData.length,
+            maths: mathsTotal / studentsData.length,
+            computers: computersTotal / studentsData.length,
+            science: scienceTotal / studentsData.length,
+        }
+
+        const subjectCapsPopulate = {
+            hindi: "Hindi",
+            english: "English",
+            maths: "Maths",
+            computers: "Computers",
+            science: "Science",
+        }
+
+        let subjectHtml = "";
+        const subjects = ["hindi", "english", "maths", "computers", "science"];
+        subjects.map( ( eachSubjecct ) => {
+            return (
+                subjectHtml += `<article>
+                    <header><strong>${ subjectCapsPopulate[eachSubjecct] }</strong></header>
+                    <p>Average: ${ subjectAvg[eachSubjecct] }</p>
+                </article>`)
+        } )
+        const subjectAverage1 = document.getElementById( "subjectAverage" );
+        subjectAverage1.innerHTML = subjectHtml;
     </script>
+
 </body>
 
 </html>
