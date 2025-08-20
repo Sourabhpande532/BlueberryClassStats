@@ -23,7 +23,7 @@
     <main class="container">
         <section>
             <h2>Student Records</h2>
-            <div class="studentRecords"></div>
+            <div class="overflow-auto" id="studentRecords"></div>
         </section>
     </main>
     <script>
@@ -73,6 +73,50 @@
                 avgMarks: 93.8,
             },
         ];
+        let studentHtml = ""
+        const displayRecordsData = document.getElementById( "studentRecords" );
+        studentHtml += `<table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Roll No</th>
+                    <th>Hindi</th>
+                    <th>English</th>
+                    <th>Maths</th>
+                    <th>Computers</th>
+                    <th>Science</th>
+                    <th>Total Marks</th>
+                    <th>Average</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+            <tbody>`
+        const getGrade = ( avgMarks ) => {
+            if ( avgMarks >= 90 ) return "A";
+            if ( avgMarks >= 80 ) return "B";
+            if ( avgMarks >= 70 ) return "C";
+            if ( avgMarks >= 60 ) return "D";
+            if ( avgMarks >= 50 ) return "E";
+            return "F";
+        }
+        const tbodyData =  studentsData.map( ( { name, rollNo, hindi, english, maths, computers, science, totalMarks, avgMarks } ) => {
+            return (
+                `<tr>
+                        <td>${ name }</td>
+                        <td>${ rollNo }</td>
+                        <td>${ hindi }</td>
+                        <td>${ english }</td>
+                        <td>${ maths }</td>
+                        <td>${ computers }</td>
+                        <td>${ science }</td>
+                        <td>${ totalMarks }</td>
+                        <td>${ avgMarks }</td>
+                        <td>${ getGrade( avgMarks ) }</td>
+                    </tr>`
+            )
+        } )
+        studentHtml += `${tbodyData.join("")}</tbody></table>`
+       displayRecordsData.innerHTML = studentHtml
     </script>
 </body>
 
