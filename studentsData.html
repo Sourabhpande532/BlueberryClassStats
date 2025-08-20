@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Records</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
 </head>
 
@@ -99,7 +100,7 @@
             if ( avgMarks >= 50 ) return "E";
             return "F";
         }
-        const tbodyData =  studentsData.map( ( { name, rollNo, hindi, english, maths, computers, science, totalMarks, avgMarks } ) => {
+        const tbodyData = studentsData.map( ( { name, rollNo, hindi, english, maths, computers, science, totalMarks, avgMarks } ) => {
             return (
                 `<tr>
                         <td>${ name }</td>
@@ -115,8 +116,8 @@
                     </tr>`
             )
         } )
-        studentHtml += `${tbodyData.join("")}</tbody></table>`
-       displayRecordsData.innerHTML = studentHtml
+        studentHtml += `${ tbodyData.join( "" ) }</tbody></table>`
+        displayRecordsData.innerHTML = studentHtml
     </script>
 </body>
 
