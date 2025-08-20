@@ -12,7 +12,7 @@
         <nav>
             <ul>
                 <li><a href="index.html">Class Analysis</a></li>
-                <li><a href="">All Students Data</a></li>
+                <li><a href="studentsData.html">All Students Data</a></li>
             </ul>
         </nav>
         <hgroup>
@@ -186,11 +186,11 @@
 
         let subjectHtml = "";
         const subjects = ["hindi", "english", "maths", "computers", "science"];
-        subjects.map( ( eachSubjecct ) => {
+        subjects.map( ( eachSubject ) => {
             return (
                 subjectHtml += `<article>
-                    <header><strong>${ subjectCapsPopulate[eachSubjecct] }</strong></header>
-                    <p>Average: ${ subjectAvg[eachSubjecct] }</p>
+                    <header><strong>${ subjectCapsPopulate[eachSubject] }</strong></header>
+                    <p>Average: ${ subjectAvg[eachSubject] }</p>
                 </article>`)
         } )
         const subjectAverage1 = document.getElementById( "subjectAverage" );
